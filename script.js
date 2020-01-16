@@ -73,31 +73,43 @@ const students = [{
     }
 ];
 
-// Creates h1 element for each student
-const h1 = (student) => {
-    if (student.score >= 60) {
-        return  `<h1 class="xx-large passing">${student.name}</h1>`
+// // Creates h1 element for each student
+// const h1 = (student) => {
+//     if (student.score >= 60) {
+//         return  `<h1 class="xx-large passing">${student.name}</h1>`
+//     } else {
+//         return  `<h1 class="xx-large failing">${student.name}</h1>`
+//     }   
+// };
+
+// // Creates section element for each student
+// const section = (studentSubj) => `<section class="bordered dashed section--padded">${studentSubj}</section>`
+
+// // Creates aside element for each student
+// const aside = (studentInfo) => 
+
+const element = (elementSel, objVal, classAssign, score) => {
+    console.log(elementSel, objVal, classAssign);
+    if (elementSel == "h1"){
+        if (score >= 60) {
+            return  `<h1 class="xx-large passing">${objVal}</h1>`
+        } else {
+            return  `<h1 class="xx-large failing">${objVal}</h1>`
+        } 
     } else {
-        return  `<h1 class="xx-large failing">${student.name}</h1>`
-    }   
+        return `<${elementSel} class="${classAssign}">${objVal}</${elementSel}>`
+    }
+
 };
-
-// Creates section element for each student
-const section = (studentSubj) => `<section class="bordered dashed section--padded">${studentSubj}</section>`
-
-// Creates aside element for each student
-const aside = (studentInfo) => `<aside class="pushRight">${studentInfo}</aside>`
-
-
 
 // Calls functions to create individual elements in a #student div for each student
 const createStudentComponent = (student) => `
     <div id="student">
-        ${h1(student)}
-        ${section(student.subject)}
-        ${aside(student.info)}
-    </div>
-`
+        ${element("h1", student.name, "xx-large passing", student.score)}
+        ${element("section", student.subject, "bordered dashed section--padded")}
+        ${element("aside", student.info, "pushRight")}
+    </div>`
+
 
 //Outputs HTML to the DOM
 const studentComponent = document.querySelector("#container");
