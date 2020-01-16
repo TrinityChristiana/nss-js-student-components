@@ -1,3 +1,4 @@
+// Defines Object
 const students = [{
         name: "Chris Miller",
         subject: "History",
@@ -72,66 +73,34 @@ const students = [{
     }
 ];
 
-const createStudentComponentPassing = (studentsObj) => {
-    return `
-    <div class="student">
-        <h1 class="xx-large passing">${name}</h1>
-        <section class="bordered dashed section--padded">${subject}</section>
-        <aside class="pushRight">${info}</aside>
-    </div>
-    `
+// Creates h1 element for each student
+const h1 = (student) => {
+    if (student.score >= 60) {
+        return  `<h1 class="xx-large passing">${student.name}</h1>`
+    } else {
+        return  `<h1 class="xx-large failing">${student.name}</h1>`
+    }   
 };
+
+// Creates section element for each student
+const section = (studentSubj) => `<section class="bordered dashed section--padded">${studentSubj}</section>`
+
+// Creates aside element for each student
+const aside = (studentInfo) => `<aside class="pushRight">${studentInfo}</aside>`
+
+
+
+// Calls functions to create individual elements in a #student div for each student
+const createStudentComponent = (student) => `
+    <div id="student">
+        ${h1(student)}
+        ${section(student.subject)}
+        ${aside(student.info)}
+    </div>
+`
+
+//Outputs HTML to the DOM
 const studentComponent = document.querySelector("#container");
 
-
-const createStudentComponent = (studentsObj) => {
-
-    for (let i = 0; i < students.length; i++) {
-    
-        let student = students[i];
-        console.log(studentComponent);
-        if (student.score >= 60) {
-            studentComponent.innerHTML +=`
-            <div class="student">
-                <h1 class="xx-large passing">${student.name}</h1>
-                <section class="bordered dashed section--padded">${student.subject}</section>
-                <aside class="pushRight">${student.info}</aside>
-            </div>`
-            console.log(studentComponent + "passing");
-        } else {
-
-            studentComponent.innerHTML += `
-            <div class="student">
-                <h1 class="xx-large failing">${student.name}</h1>
-                <section class="bordered dashed section--padded">${student.subject}</section>
-                <aside class="pushRight">${student.info}</aside>
-            </div>`
-        }
-    }
-    
-
-};
-
-createStudentComponent(students);
-
-
-// for (let i = 0; i < students.length; i++) {
-    
-//     let student = students[i];
-//     console.log(studentComponent);
-//     if (student.score >= 60) {
-//         studentComponent.innerHTML += createStudentComponentPassing(
-//             student.name,
-//             student.subject,
-//             student.info
-//         );
-//         console.log(studentComponent + "passing");
-//     } else {
-//         studentComponent.innerHTML += createStudentComponentFailing(
-//             student.name,
-//             student.subject,
-//             student.info
-//         );
-//     }
-// }
-
+// Calls function to create #divs for each student in students array
+students.forEach(item => studentComponent.innerHTML += createStudentComponent(item));
