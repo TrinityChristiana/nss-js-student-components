@@ -91,11 +91,8 @@ const students = [{
 const element = (elementSel, objVal, classAssign, score) => {
     console.log(elementSel, objVal, classAssign);
     if (elementSel == "h1"){
-        if (score >= 60) {
-            return  `<h1 class="xx-large passing">${objVal}</h1>`
-        } else {
-            return  `<h1 class="xx-large failing">${objVal}</h1>`
-        } 
+        // Uses ter conditional
+            return  `<h1 class="xx-large ${score >= 60 ? "passing": "failing" }">${objVal}</h1>`
     } else {
         return `<${elementSel} class="${classAssign}">${objVal}</${elementSel}>`
     }
@@ -105,7 +102,7 @@ const element = (elementSel, objVal, classAssign, score) => {
 // Calls functions to create individual elements in a #student div for each student
 const createStudentComponent = (student) => `
     <div id="student">
-        ${element("h1", student.name, "xx-large passing", student.score)}
+        ${element("h1", student.name, "xx-large ", student.score)}
         ${element("section", student.subject, "bordered dashed section--padded")}
         ${element("aside", student.info, "pushRight")}
     </div>`
@@ -116,3 +113,6 @@ const studentComponent = document.querySelector("#container");
 
 // Calls function to create #divs for each student in students array
 students.forEach(item => studentComponent.innerHTML += createStudentComponent(item));
+
+
+
